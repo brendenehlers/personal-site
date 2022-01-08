@@ -56,18 +56,3 @@ if (projectsElem) {
     projectsElem.innerHTML += caroselItem
   }
 }
-
-// figure out how this works
-// fix error with transactions being deadlocked
-// function sendEmail() {
-//   console.log('sending email')
-//   Email.send({
-//     // Host: 'stmp.elasticemail.com:2525',
-//     // Username: 'indexfromone@gmail.com',
-//     // Password: 'CBE9088951091B6DF9887F8C0FCC6D7FD090',
-//     // To: 'brenden@theehlers.org',
-//     // From: 'indexfromone@gmail.com',
-//     // Subject: 'This is the subject',
-//     // Body: 'And this is the body',
-//   }).then(message => alert(message))
-// }
