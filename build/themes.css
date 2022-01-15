@@ -11,9 +11,13 @@
   --text-highlight-hover: #93D86C;
 
   /* font sizes */
-  --text-header: 4rem;
+  --text-header: 3.5rem;
   --text-normal: 1rem;
-  --text-section-header: 2.5rem;
+  --text-section-header: 2rem;
+}
+
+body {
+  background-color: var(--main-background);
 }
 
 * {
