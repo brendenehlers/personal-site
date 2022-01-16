@@ -4,6 +4,15 @@
   <link href='./themes.css' rel='stylesheet'>
   <title>Brenden Ehlers</title>
   <style>
+    .clickable {
+      color: var(--text-highlight);
+      font-size: var(--text-normal);
+      text-decoration: none;
+    }
+    .clickable:hover {
+      cursor: pointer;
+      color: var(--text-highlight-hover);
+    }
     .navbar {
       position: fixed;
       right: 1rem;
@@ -12,32 +21,35 @@
     .navbar-item {
       padding-left: 2rem;
       padding-right: 2rem;
-      color: var(--text-highlight);
-      text-decoration: none;
-      font-size: var(--text-normal);
-    }
-    .navbar-item:hover {
-      cursor: pointer;
-      color: var(--text-highlight-hover);
     }
     .landing {
       height: 100vh;
       width: auto;
       /* background-color: var(--main-background); */
     }
-    .landing-text.basic-text {
+    .basic-text {
       color: var(--text-highlight);
       padding: 0;
       margin: 0;
       font-size: var(--text-normal)
     }
-    .landing-text.header-text {
+    .header-text {
       color: var(--text-primary);
       font-size: var(--text-header);
       font-weight: bold;
       margin: 0;
       padding: 0;
       /* width: 50rem; */
+    }
+    .more-button {
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      padding: 2rem;
     }
     .skills {
       height: 100vh;
@@ -88,23 +100,24 @@
     }
   </style>
 </head>
+
 <body>
   <div class='navbar d-flex flex-row align-content-center justify-content-end'>
-    <a class='navbar-item' href='#landing'>
+    <a class='clickable navbar-item' href='#landing'>
       <span>Home</span>
     </a>
-    <a class='navbar-item' href='#skills'>
+    <a class='clickable navbar-item' href='#skills'>
       <span >What I Do</span>
     </a>
-    <a class='navbar-item' href='#experience'>
+    <a class='clickable navbar-item' href='#experience'>
       <span >Experience</span>
     </a>
-    <a class='navbar-item' href='#contact'>
+    <a class='clickable navbar-item' href='#contact'>
       <span >Contact</span>
     </a>
   </div>
 
-  <div class='landing container d-flex flex-column justify-content-center' id='landing'>
+  <div class='landing container-md d-flex flex-column justify-content-center' id='landing'>
     <div class='row'>
       <p class='landing-text col basic-text'>Hi, my name is</p>
     </div>
@@ -117,6 +130,7 @@
     <div class='row w-75 pb-5'>
       <p class='landing-text row basic-text'>I’m a student and software engineer that enjoys creating new experiences and designs for websites.</p>
     </div>
+    <a class='more-button clickable' href='#skills'>More</a>
   </div>
 
   <div class='skills container d-flex flex-column justify-content-center' id='skills'>
