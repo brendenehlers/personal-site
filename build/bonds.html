@@ -2,91 +2,20 @@
 <head>
 </head>
 <body>
-  <script>
-    function annualizedRate(r, n, ny) {
-      return (Math.pow(1+r/ny, n*ny)-1)
-    }
-    function faceValue(n, ny, p, rc, rm) {
-      const a = annualizedRate(rm, n, ny)
-      return p / (a+1) * (1+ (rc/rm)*a)
-    }
-    function removeAndShift(val, toRemove='', toShift=100) {
-      const re = new RegExp(`[${toRemove}]+`, 'g')
-      return parseFloat(val.replaceAll(re, ''))/toShift
-    }
-    function calculate() {
-      const n = document.getElementById('n').value
-      const ny = document.getElementById('ny').value
-      const p = removeAndShift(document.getElementById('p').value, '$,', 100)
-      const rc = removeAndShift(document.getElementById('rc').value, '%', 100)
-      const rm = removeAndShift(document.getElementById('rm').value, '%', 100)
-      const fv = faceValue(n, ny, p, rc, rm)
-      document.getElementById('out').innerText = `The face value of this bond is \$${fv.toFixed(2)}`
-    }
-
-  </script>
-
   <span><label>Term of debt (years)</label><input style='margin-left: 1rem;' id='n' value='20'/></span>
   <br />
   <span><label>Payments per year</label><input style='margin-left: 1rem;' id='ny' value='2' /></span>
   <br />
-  <span><label>Principal</label><input style='margin-left: 1rem;' id='p' value='25000000'/></span>
+  <span><label>Principal</label><input style='margin-left: 1rem;' id='p' value='$25,000,000'/></span>
   <br />
-  <span><label>Coupon rate (decimal)</label><input style='margin-left: 1rem;' id='rc' value='0.06'/></span>
+  <span><label>Coupon rate</label><input style='margin-left: 1rem;' id='rc' value='6%'/></span>
   <br />
-  <span><label>Market rate (decimal)</label><input style='margin-left: 1rem;' id='rm' value='0.07'/></span>
+  <span><label>Market rate</label><input style='margin-left: 1rem;' id='rm' value='7%'/></span>
   <br />
   <button onclick='calculate()'>Calculate Face Value</button>
   <br />
   <div>
     <p id='out'>The face value of this bond is ---</p>
   </div>
-  <script>
-    calculate()
-
-    const couponRate = document.getElementById('rc')
-    const marketRate = document.getElementById('rm')
-    // format percents to x.xx% when the field is deselected
-    function percentFormatter(rate) {
-      return (e) => {
-        const value = parseFloat(rate.value.replaceAll('%', ''))
-        if (value > 1) {
-          rate.value = `${value}%`
-        } else {
-          rate.value = `${(value*100).toFixed(2)}%`
-        }
-      }
-    }
-    couponRate.addEventListener('blur', percentFormatter(couponRate))
-    marketRate.addEventListener('blur', percentFormatter(marketRate))
-
-    // remove the % when the field is selected so the user can edit it easier
-    function removeValues(withValue, toRemove) {
-      const re = new RegExp(`[${toRemove}]+`, 'g')
-      return () => {withValue.value = withValue.value.replaceAll(re, '')}
-    }
-    couponRate.addEventListener('focus', removeValues(couponRate, '%'))
-    marketRate.addEventListener('focus', removeValues(marketRate, '%'))
-
-    const principal = document.getElementById('p')
-    // format monetary values on blur
-    function moneyFormatter(dolla) {
-      return (e) => {
-        let value = `${parseFloat(dolla.value)}`.split('').reverse().join('')
-        // value = value
-        console.log(value)
-        let ret = ''
-        for (let i = 0; i<Math.round(value.length / 3); i++) {
-          ret += `${value.substring(3*i, 3*(i+1))},`
-        }
-        // this isn't great but it works
-        ret = `\$${ret.split('').reverse().join('').replace(',', '')}`
-        dolla.value = ret
-      }
-    }
-    principal.addEventListener('blur', moneyFormatter(principal))
-
-    // remove additional characters on focus
-    principal.addEventListener('focus', removeValues(principal, '$,'))
-    </script>
+  <script src='./bonds.js'></script>
 </body>
