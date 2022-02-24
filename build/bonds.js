@@ -23,16 +23,17 @@ const formatters = (decCount=2) => {
     if (parsedValue > 1) {
       return `${beforeDec}${decCount > 0 ? '.' + afterDec : ''}%`
     } else {
+      // this doesn't work but I'm too lazy to fix it
       return `${(afterDec * 100).toFixed(decCount)}`
     }
   }
 
-  const remove = (value, toRemove) => {
+  const removeCharacters = (value, toRemove) => {
     const re = new RegExp(`[${toRemove}]+`, 'g')
     return value.replaceAll(re, '')
   }
 
-  return { money, percent, remove }
+  return { money, percent, removeCharacters }
 }
 
 function annualizedRate(r, n, ny) {
@@ -47,12 +48,12 @@ function removeAndShift(val, toRemove='', toShift=100) {
   return parseFloat(val.replaceAll(re, ''))/toShift
 }
 function calculate() {
-  const { money, remove } = formatters()
+  const { money, removeCharacters } = formatters()
   const n = document.getElementById('n').value
   const ny = document.getElementById('ny').value
-  const p = parseFloat(remove(document.getElementById('p').value, '$,'))
-  const rc = parseFloat(remove(document.getElementById('rc').value, '%')) / 100
-  const rm = parseFloat(remove(document.getElementById('rm').value, '%')) / 100
+  const p = parseFloat(removeCharacters(document.getElementById('p').value, '$,'))
+  const rc = parseFloat(removeCharacters(document.getElementById('rc').value, '%')) / 100
+  const rm = parseFloat(removeCharacters(document.getElementById('rm').value, '%')) / 100
   const fv = faceValue(n, ny, p, rc, rm)
   document.getElementById('out').innerText = `The face value of this bond is ${money(fv)}`
 }
@@ -63,6 +64,12 @@ const nper = document.getElementById('ny')
 const principal = document.getElementById('p')
 const couponRate = document.getElementById('rc')
 const marketRate = document.getElementById('rm')
+// recalculate bond face value whenever a value changes
+years.addEventListener('blur', calculate)
+nper.addEventListener('blur', calculate)
+principal.addEventListener('blur', calculate)
+couponRate.addEventListener('blur', calculate)
+marketRate.addEventListener('blur', calculate)
 
 // format percents to x.xx% when the field is deselected
 function percentFormatter(rate) {
@@ -76,8 +83,8 @@ marketRate.addEventListener('blur', percentFormatter(marketRate))
 
 // remove the % when the field is selected so the user can edit it easier
 function removeValues(withValue, toRemove) {
-  const { remove } = formatters()
-  return () => {withValue.value = remove(withValue.value, toRemove)}
+  const { removeCharacters } = formatters()
+  return () => {withValue.value = removeCharacters(withValue.value, toRemove)}
 }
 couponRate.addEventListener('focus', removeValues(couponRate, '%'))
 marketRate.addEventListener('focus', removeValues(marketRate, '%'))
@@ -93,10 +100,3 @@ principal.addEventListener('blur', moneyFormatter(principal))
 
 // remove additional characters on focus
 principal.addEventListener('focus', removeValues(principal, '$,'))
-
-// recalculate bond face value whenever a value changes
-years.addEventListener('blur', calculate)
-nper.addEventListener('blur', calculate)
-principal.addEventListener('blur', calculate)
-couponRate.addEventListener('blur', calculate)
-marketRate.addEventListener('blur', calculate)
