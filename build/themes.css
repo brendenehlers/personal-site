@@ -9,15 +9,24 @@
   --text-primary: white;
   --text-highlight: #6CCA37;
   --text-highlight-hover: #93D86C;
+}
 
-  /* font sizes */
-  --text-header: 3.5rem;
-  --text-normal: 1.3rem;
-  --text-section-header: 2rem;
+@media screen and (min-width: 720px) {
+  /* Normal font sizes */
+  :root {
+    --text-header: 3.5rem;
+    --text-normal: 1.3rem;
+    --text-section-header: 2rem;
+  }
+}
 
-  --text-header-mobile: 2.5rem;
-  --text-normal-mobile: 0.3rem;
-  --text-section-header-mobile: 1rem;
+@media screen and (max-width: 720px) {
+  /* Mobile font sizes */
+  :root {
+    --text-header: 2.2rem;
+    --text-normal: 1rem;
+    --text-section-header: 1.5rem;
+  }
 }
 
 body {
@@ -49,8 +58,7 @@ body {
 }
 .landing {
   height: 100vh;
-  width: auto;
-  /* background-color: var(--main-background); */
+  width: 90vw;
 }
 .basic-text {
   color: var(--text-highlight);
@@ -64,7 +72,6 @@ body {
   font-weight: bold;
   margin: 0;
   padding: 0;
-  /* width: 50rem; */
 }
 .more-button {
   position: absolute;
@@ -76,25 +83,18 @@ body {
   text-align: center;
   padding: 2rem;
 }
-.skills {
-  height: 100vh;
-  /* background-color: var(--main-background); */
-}
-.skills-header {
+.content-header {
   color: var(--text-primary);
   padding: 0;
   margin: 0;
   font-size: var(--text-header);
   font-weight: bold;
-  /* width: 50rem; */
   margin-bottom: 1rem;
 }
-.skills-section-card {
-  margin-left: 2rem;
-  margin-right: 2rem;
-  width: 21rem;
+.content-section-card {
+  min-width: 21rem;
 }
-.skills-section-header {
+.content-section-header {
   color: var(--text-primary);
   padding: 0;
   padding-bottom: 1rem;
@@ -102,49 +102,20 @@ body {
   font-size: var(--text-section-header);
 
 }
-.skills-title {
+.content-section-title {
   color: var(--text-primary);
   font-size: var(--text-normal);
   padding: 0;
   margin: 0;
 }
-.skills-content {
+.content-section-body {
   color: var(--text-highlight);
   font-size: var(--text-normal);
   padding: 0;
   padding-bottom: 1rem;
   margin: 0;
 }
-.experience {
-  height: 100vh;
-  /* background-color: var(--main-background); */
+.content-section {
+  margin-bottom: 30vh;
+  padding-top: 10vh;
 }
-.contact {
-  height: 100vh;
-  /* background-color: var(--main-background); */
-}
-
-/* need the meta tag in head for this to work */
-/* @media screen and (max-width: 720px) {
-  .skills-content {
-    font-size: var(--text-normal-mobile);
-  }
-  .skills-title {
-    font-size: var(--text-normal-mobile);
-  }
-  .skills-section-header {
-    font-size: var(--text-section-header-mobile);
-  }
-  .skills-header {
-    font-size: var(--text-header-mobile);
-  }
-  .basic-text {
-    font-size: var(--text-normal-mobile);
-  }
-  .header-text {
-    font-size: var(--text-header-mobile);
-  }
-  .clickable {
-    font-size: var(--text-normal-mobile);
-  }
-} */
